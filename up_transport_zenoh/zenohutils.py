@@ -49,9 +49,13 @@ class ZenohUtils:
             "*" if uri.ue_version_major == UriFactory.WILDCARD_ENTITY_VERSION else f"{uri.ue_version_major:X}"
         )
         resource_id = "*" if uri.resource_id == UriFactory.WILDCARD_RESOURCE_ID else f"{uri.resource_id:X}"
-        ue_id = int(ue_id)  # Convert string to integer
-        upper_16 = (ue_id >> 16) & 0xFFFF  # Get upper 16 bits
-        lower_16 = ue_id & 0xFFFF          # Get lower 16 bits
+        if ue_id == "*":
+            upper_16 = "*"  
+            lower_16 = "*"        
+        else: 
+            ue_id = int(ue_id)  # Convert string to integer
+            upper_16 = (ue_id >> 16) & 0xFFFF  # Get upper 16 bits
+            lower_16 = ue_id & 0xFFFF          # Get lower 16 bits
         return f"{authority}/{upper_16}/{lower_16}/{ue_version_major}/{resource_id}"
 
     @staticmethod
