@@ -45,18 +45,18 @@ class ZenohUtils:
     def uri_to_zenoh_key(authority_name: str, uri: UUri) -> str:
         authority = authority_name if not uri.authority_name else uri.authority_name
         ue_id = "*" if uri.ue_id == UriFactory.WILDCARD_ENTITY_ID else f"{uri.ue_id:X}"
+        if ue_id == "*":
+            ue_type = "*"  
+            ue_instance = "*"        
+        else: 
+            ue_id = int(ue_id) 
+            ue_type = (ue_id >> 16) & 0xFFFF  # Get upper 16 bits
+            ue_instance = ue_id & 0xFFFF      # Get lower 16 bits
         ue_version_major = (
             "*" if uri.ue_version_major == UriFactory.WILDCARD_ENTITY_VERSION else f"{uri.ue_version_major:X}"
         )
         resource_id = "*" if uri.resource_id == UriFactory.WILDCARD_RESOURCE_ID else f"{uri.resource_id:X}"
-        if ue_id == "*":
-            upper_16 = "*"  
-            lower_16 = "*"        
-        else: 
-            ue_id = int(ue_id)  # Convert string to integer
-            upper_16 = (ue_id >> 16) & 0xFFFF  # Get upper 16 bits
-            lower_16 = ue_id & 0xFFFF          # Get lower 16 bits
-        return f"{authority}/{upper_16}/{lower_16}/{ue_version_major}/{resource_id}"
+        return f"{authority}/{ue_type}/{ue_instance}/{ue_version_major}/{resource_id}"
 
     @staticmethod
     def get_uauth_from_uuri(uri: UUri) -> Union[str, UStatus]:
