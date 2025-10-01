@@ -27,7 +27,7 @@ from uprotocol.v1.uri_pb2 import UUri
 from uprotocol.v1.ustatus_pb2 import UStatus
 from zenoh import Priority, ZBytes
 
-UATTRIBUTE_VERSION: int = 1
+UATTRIBUTE_VERSION: int = 10
 
 # Configure the logging
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
