@@ -77,7 +77,7 @@ class ZenohUtils:
     @staticmethod
     def to_zenoh_key_string(authority_name: str, src_uri: UUri, dst_uri: UUri = None) -> str:
         src = ZenohUtils.uri_to_zenoh_key(authority_name, src_uri)
-        dst = ZenohUtils.uri_to_zenoh_key(authority_name, dst_uri) if dst_uri and dst_uri != UUri() else "{}/{}/{}/{}"
+        dst = ZenohUtils.uri_to_zenoh_key(authority_name, dst_uri) if dst_uri and dst_uri != UUri() else "{}/{}/{}/{}/{}"
         return f"up/{src}/{dst}"
 
     @staticmethod
