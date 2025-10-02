@@ -46,12 +46,12 @@ class ZenohUtils:
         authority = authority_name if not uri.authority_name else uri.authority_name
         ue_id = "*" if uri.ue_id == UriFactory.WILDCARD_ENTITY_ID else f"{uri.ue_id:X}"
         if ue_id == "*":
-            ue_type = "*"  
-            ue_instance = "*"        
-        else: 
-            ue_id = int(ue_id) 
+            ue_type = "*"
+            ue_instance = "*"
+        else:
+            ue_id = int(ue_id)
             ue_type = (ue_id >> 16) & 0xFFFF  # Get upper 16 bits
-            ue_instance = ue_id & 0xFFFF      # Get lower 16 bits
+            ue_instance = ue_id & 0xFFFF  # Get lower 16 bits
         ue_version_major = (
             "*" if uri.ue_version_major == UriFactory.WILDCARD_ENTITY_VERSION else f"{uri.ue_version_major:X}"
         )
@@ -77,7 +77,9 @@ class ZenohUtils:
     @staticmethod
     def to_zenoh_key_string(authority_name: str, src_uri: UUri, dst_uri: UUri = None) -> str:
         src = ZenohUtils.uri_to_zenoh_key(authority_name, src_uri)
-        dst = ZenohUtils.uri_to_zenoh_key(authority_name, dst_uri) if dst_uri and dst_uri != UUri() else "{}/{}/{}/{}/{}"
+        dst = (
+            ZenohUtils.uri_to_zenoh_key(authority_name, dst_uri) if dst_uri and dst_uri != UUri() else "{}/{}/{}/{}/{}"
+        )
         return f"up/{src}/{dst}"
 
     @staticmethod
