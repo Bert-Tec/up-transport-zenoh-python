@@ -224,7 +224,7 @@ class ZenohUtils:
         # Error handling
         if flag == MessageFlag(0):
             raise UStatusError.from_code_message(
-                code=UCode.INTERNAL, message="Wrong combination of source UUri and sink " "UUri"
+                code=UCode.INTERNAL, message="Wrong combination of source UUri and sink UUri"
             )
         else:
             return flag
